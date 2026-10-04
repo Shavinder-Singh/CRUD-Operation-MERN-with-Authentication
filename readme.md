@@ -52,3 +52,7 @@ npm i axios react-router-dom
 
 Utils file create for Common Route URL
 Create AuthContext File which crud opertaion function use and data is getting from other files like register pages comes (name,email,password) 
+
+
+Posts Create and crud operation performs in backend first then in frontend using protect route authentication
+

@@ -4,6 +4,7 @@ import { useContext } from "react";
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
+  console.log(user);
 
   const handleLogout = () => {
     logout();
@@ -45,6 +46,16 @@ const Navbar = () => {
             >
               Delete Account
             </Link>
+          )}
+          {user ? (
+            <Link to="/createpost">Create Post</Link>
+          ) : (
+            <Link to="/login">Create Post</Link>
+          )}
+          {user && user.role === "user" ? (
+            <Link to="/userdashboard">User Dashboard</Link>
+          ) : (
+            <Link to="/admindashboard">Admin Dashboard</Link>
           )}
         </div>
       </div>

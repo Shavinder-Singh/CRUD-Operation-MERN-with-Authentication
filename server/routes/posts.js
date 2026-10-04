@@ -6,11 +6,11 @@ const { protect } = require('../middleware/auth.js');
 
 
 
-router.post('/createpost', protect, createPost);
-router.get('/getallposts', readPosts);
-router.get('/getsingleuserposts',protect, singleUserPosts);
-router.get('/singlePostView/:id',protect, singlePost);
-router.put('/updatepost/:id', protect, updatePost);
-router.delete('/deletepost/:id', protect, deletePost);
+router.post('/createpost', protect, createPost);//done
+router.get('/getallposts', readPosts);//done
+router.get('/getsingleuserposts',protect, singleUserPosts);//done
+router.get('/singlepostview/:id',protect, singlePost);//done
+router.put('/updatepost/:id', protect, updatePost);//done
+router.delete('/deletepost/:id', protect, deletePost);//done
 
 module.exports = router;

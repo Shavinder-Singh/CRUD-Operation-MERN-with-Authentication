@@ -22,7 +22,7 @@ exports.createPost = async (req, res) => {
 }
 
 
-// Read All Posts of one User
+// Read All Posts of all users
 
 exports.readPosts = async (req, res) => {
     const posts = await Post.find({ status: "published" }).populate("createdBy", "name email");
@@ -39,7 +39,7 @@ exports.readPosts = async (req, res) => {
 
 
 
-// Read All Users Posts in homepage
+// Single user (All posts)
 
 exports.singleUserPosts = async (req, res) => {
     try {
