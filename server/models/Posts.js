@@ -46,7 +46,7 @@ const postSchema = new mongoose.Schema(
         options: [
             {
                 name: String,
-
+                price: Number,
                 available: {
                     type: Boolean,
                     default: true,

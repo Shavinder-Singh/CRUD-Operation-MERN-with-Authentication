@@ -11,12 +11,16 @@ app.use(express.json());
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/auth');
 const postRoutes = require('./routes/posts');
+const bookingRoutes = require('./routes/orders.js');
+
+
 
 
 
 connectDB();
 app.use('/api/auth', authRoutes);
 app.use('/api/posts', postRoutes);
+app.use('/api/orders/', bookingRoutes);
 
 
 
