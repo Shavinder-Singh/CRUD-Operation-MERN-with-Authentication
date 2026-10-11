@@ -57,6 +57,12 @@ const Navbar = () => {
           ) : (
             <Link to="/admindashboard">Admin Dashboard</Link>
           )}
+
+          {user && user.role === "user" ? (
+            <Link to="/vieworders">View Orders</Link>
+          ) : (
+            <p>NA</p>
+          )}
         </div>
       </div>
     </nav>

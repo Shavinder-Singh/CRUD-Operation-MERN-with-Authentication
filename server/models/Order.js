@@ -32,7 +32,7 @@ const orderSchema = new mongoose.Schema(
             type: Number,
             default: 1,
             min: 1,
-        },
+        }, 
 
         // Post price at purchase time
         price: {

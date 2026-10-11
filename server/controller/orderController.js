@@ -76,7 +76,7 @@ exports.createOrder = async (req, res) => {
 //for only single users can seen our orders
 exports.viewOrders = async (req, res) => {
     try {
-        const userId = req.user_.id;
+        const userId = req.user._id;
         const orders = await Order.find({
             userId: userId
         })
@@ -115,6 +115,33 @@ exports.viewOrdersAdmin = async (req, res) => {
     }
 }
 
+
+//Single order which was choosen by user show on editorder page 
+exports.singleOrderView = async (req, res) => {
+    try {
+        // id is orderid
+        const { id } = req.params;
+        const order = await Order.findById(id).populate("postId");
+        // Order nahi mila
+        if (!order) {
+            return res.status(404).json({
+                message: "Order not found"
+            });
+        }
+        // Order ka data frontend ko bhejo
+        return res.status(200).json({
+            message: "Single Order Found",
+            order
+        });
+    }
+    catch (err) {
+
+        return res.status(500).json({
+            message: "Server Error",
+            error: err.message
+        });
+    }
+}
 //Update Order by user
 
 exports.updateOrder = async (req, res) => {
@@ -229,26 +256,76 @@ exports.updateOrder = async (req, res) => {
 
 exports.adminStatus = async (req, res) => {
     try {
-        const { orderId } = req.params
+        const { id } = req.params
         const { status } = req.body;
         // Allowed statuses
         const allowedStatus = [
             "pending",
             "confirmed",
-            "cancelled"
+            "cancelled",
+            "failed"
         ];
         if (!allowedStatus.includes(status)) {
             return res.status(400).json({
                 message: "Invalid status"
             });
         }
-        const order = await Order.findById(orderId);
+        const order = await Order.findById(id);
+        if (!order) {
+            return res.status(404).json({
+                message: "Order not found",
+            });
+        }
+
         order.status = status;
         await order.save();
 
         res.status(200).json({
             message: "Order status updated successfully",
             order
+        });
+    }
+    catch (err) {
+        return res.status(500).json({
+            message: "Server Error",
+            error: err.message
+        });
+    }
+}
+
+
+
+//Delete or cancel Order
+
+exports.deleteorder = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const userId = req.user._id;
+
+        const order = await Order.findById(id);
+        if (!order) {
+            return res.status(404).json({
+                message: "Order Not Found"
+            });
+        }
+
+        // Check karo ki order isi user ka hai
+        if (order.userId.toString() !== userId.toString()) {
+            return res.status(403).json({
+                message: "You cannot cancel this order"
+            });
+        }
+
+        if (order.status !== "pending") {
+            return res.status(400).json({
+                message: "You can delete only pending orders"
+            });
+        }
+
+        await Order.findByIdAndDelete(id);
+
+        return res.status(200).json({
+            message: "Pending order deleted successfully"
         });
     }
     catch (err) {

@@ -41,6 +41,12 @@ const postSchema = new mongoose.Schema(
             type: Number,
             default: 0,
         },
+        // Main post duration
+        duration: {
+            type: String,
+            required: true,
+            default: "10 Hours",
+        },
 
         // Creator apni marzi se options add karega
         options: [

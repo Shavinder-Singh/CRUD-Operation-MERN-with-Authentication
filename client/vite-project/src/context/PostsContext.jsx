@@ -66,7 +66,7 @@ export const PostProvider = ({ children }) => {
     try {
       const { data } = await api.get(`/posts/singlepostview/${id}`);
       setViewDetailPost(data.singlePost);
-      
+
       return data;
     } catch (err) {
       console.log(err);

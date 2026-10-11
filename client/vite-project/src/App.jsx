@@ -2,7 +2,7 @@ import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Homepage";
 import Register from "./pages/Register";
-import Login  from "./pages/Login";  
+import Login from "./pages/Login";
 import UpdatePassword from "./pages/UpdatePassword";
 import DeleteAccount from "./pages/DeleteAccount";
 // Posts Routes
@@ -11,19 +11,24 @@ import Navbar from "./components/Navbar";
 import AdminDashboard from "./pages/AdminDashboard";
 import UserDashboard from "./pages/UserDashboard";
 import ViewDetailPage from "./pages/ViewDetailPage";
-
+import ViewOrders from "./pages/ViewOrders";
+import EditOrderPage from "./pages/EditOrderPage";
 
 function App() {
   return (
     <>
       <BrowserRouter>
-      <Navbar/>
+        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="admindashboard" element={<AdminDashboard />} />
           <Route path="/userdashboard" element={<UserDashboard />} />
           <Route path="/viewdetail/:id" element={<ViewDetailPage />} />
-          
+          {/*  for editing a booked event or product  by user */}
+          <Route path="/editorder/:id" element={<EditOrderPage />} />
+
+          <Route path="/vieworders" element={<ViewOrders />} />
+
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/updatepassword/:id" element={<UpdatePassword />} />
@@ -31,7 +36,6 @@ function App() {
           {/* Post Routes */}
           <Route path="/createpost" element={<CreatePost />} />
           <Route path="/editpost/:id" element={<CreatePost />} />
-
         </Routes>
       </BrowserRouter>
     </>
